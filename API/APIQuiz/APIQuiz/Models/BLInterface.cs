@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace APIQuiz.Models
 {
-    public interface ITask
+    interface IBlInterface
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        string Description { get; set; }
+        Task GetTask(int id);
+        CheckTaskResponse CheckCode(CheckTaskRequest request);
     }
 }
