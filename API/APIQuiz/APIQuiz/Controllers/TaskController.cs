@@ -4,16 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using APIQuiz.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace APIQuiz.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class TaskController : ControllerBase
     {
         private readonly ITasksManager _tasksManager;
 
-        public ValuesController(TestTasksManager test)
+        public TaskController(ITasksManager test)
         {
             _tasksManager = test;
         }
@@ -21,7 +22,7 @@ namespace APIQuiz.Controllers
         [HttpGet]
         public ActionResult<TestTask> Get()
         {
-            return new ObjectResult(_tasksManager.GetTask());
+            return new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask()));
         }
 
         // GET api/values/5
