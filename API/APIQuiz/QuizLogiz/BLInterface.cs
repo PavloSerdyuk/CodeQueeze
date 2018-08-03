@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace APIQuiz.Models
 {
-    interface IBlInterface
+    public interface IBlInterface
     {
         Task GetTask(int id);
         CheckTaskResponse CheckCode(CheckTaskRequest request);

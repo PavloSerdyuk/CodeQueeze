@@ -15,7 +15,7 @@ namespace APIQuiz.Controllers
     {
         private readonly ITasksManager _tasksManager;
 
-        public TaskController(ITasksManager test)
+        public TaskController(IBlInterface service)
         {
             _tasksManager = test;
         }

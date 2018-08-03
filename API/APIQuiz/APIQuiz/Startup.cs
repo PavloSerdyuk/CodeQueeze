@@ -27,7 +27,9 @@ namespace APIQuiz
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ITasksManager, TestTasksManager>();
+           // services.AddScoped<ITasksManager, TestTasksManager>();
+            services.AddScoped<IBlInterface, TaskManager>();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
