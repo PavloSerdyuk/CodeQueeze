@@ -9,23 +9,11 @@ namespace TestRunner.Logic
     
     public class TaskManager : IBlInterface
     {
-        private IQuizTask myTask;
 
         public string[] TestValues;
         public string[] TestResults;
-
-        public List<string> results = new List<string>();
-
-        private CodeCompiler Compiler;
-
-        public bool setTests(int id)
-        {
-            // Пошук таски по файлах і встановлення тестів та очікуваних результатів
-           
-            return false;
-        }
-
         
+        private CodeCompiler Compiler;
 
         public ProcessResultModel RunTest(string testValues, string expectation)
         {
@@ -50,7 +38,7 @@ namespace TestRunner.Logic
         public IQuizTask GetTask(int id)
         {
             string path = System.Configuration.ConfigurationManager.AppSettings["FoldersPath"];
-            path += "/" + id.ToString() +"/";
+            path += "\\" + id.ToString() +"\\";
             IQuizTask task = new QuizTask();
             task.Id = id;
             task.Name = System.IO.File.ReadAllText(path + "Name.txt");
@@ -61,13 +49,12 @@ namespace TestRunner.Logic
         private void SetTests(int id)
         {
             string path = System.Configuration.ConfigurationManager.AppSettings["FoldersPath"];
-            path += "/" + id.ToString() + "/";
+            path += "\\" + id.ToString() + "\\";
             TestValues = System.IO.File.ReadAllLines(path + "Tests.txt");
             TestResults = System.IO.File.ReadAllLines(path + "Results.txt");
         }
         public CheckTaskResponse CheckCode(CheckTaskRequest request)
         {
-            myTask = new QuizTask(){Id = request.Id};
             var programPath = Directory.GetCurrentDirectory();
             CheckTaskResponse answer = new CheckTaskResponse();
             answer.Id = request.Id;
