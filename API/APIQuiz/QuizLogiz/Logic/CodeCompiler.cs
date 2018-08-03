@@ -4,19 +4,17 @@ using System.Text;
 
 namespace TestRunner.Logic
 {
-    internal class ProcessResultModel
+    public class ProcessResultModel
     {
         // Структура для повернення результатів з консолі
-        internal int ExitCode; // якщо 0 то все гаразд,  якщо інакше значення то ні
-        internal string Result; // текст виводу програми, чи помилки
+        public int ExitCode; // якщо 0 то все гаразд,  якщо інакше значення то ні
+        public string Result; // текст виводу програми, чи помилки
     }
 
     public class CodeCompiler
     {
-
         private string ProgramName;
-
-
+        
         internal void CreateCs(string programPath, string programName, string programCode)
         {
             // Створюєм .cs
