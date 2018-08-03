@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace APIQuiz.Models
 {
-    public interface ITasksManager
+    public interface IQuizTask
     {
-        IFullTask GetTask();
-        CheckTaskResponse CheckTask(CheckTaskRequest request);
+        int Id { get; set; }
+        string Name { get; set; }
+        string Description { get; set; }
     }
 }

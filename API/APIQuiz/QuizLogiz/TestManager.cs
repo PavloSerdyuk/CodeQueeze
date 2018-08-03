@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.IO;
 using APIQuiz.Models;
 
@@ -11,7 +11,7 @@ namespace TestRunner
     
     public class TaskManager : IBlInterface
     {
-        private Task myTask;
+        private QuizTask myTask;
 
         public string[] TestValues;
         public string[] TestResults;
@@ -48,7 +48,7 @@ namespace TestRunner
 
         public CheckTaskResponse CheckCode(CheckTaskRequest request)
         {
-            myTask = new Task(request.Id);
+            myTask = new QuizTask(){Id = request.Id};
             var programPath = Directory.GetCurrentDirectory();
             CheckTaskResponse answer = new CheckTaskResponse();
             answer.Id = request.Id;
