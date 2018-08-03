@@ -41,8 +41,11 @@ namespace APIQuiz.Controllers
 
         // POST api/task
         [HttpPost]
-        public void Post([FromBody] string value)
+        public CheckTaskResponse Post([FromBody] string request)
         {
+            var result = JsonConvert.DeserializeObject<CheckTaskRequest>(request);
+            
+            return _tasksManager.CheckCode(result); 
         }
 
 
