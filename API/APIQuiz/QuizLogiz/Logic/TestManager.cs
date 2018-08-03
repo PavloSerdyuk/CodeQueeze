@@ -83,7 +83,7 @@ namespace TestRunner.Logic
             }
 
             Compiler.DeleteFiles(programPath);
-            return null;
+            return answer;
         }
     }
 }
