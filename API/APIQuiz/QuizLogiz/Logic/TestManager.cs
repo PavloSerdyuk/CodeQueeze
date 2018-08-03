@@ -35,9 +35,9 @@ namespace TestRunner.Logic
             return result;
         }
         
-        public IQuizTask GetTask(int id)
+        public IQuizTask GetTask(int id, ConfigurationPaths paths)
         {
-            string path = System.Configuration.ConfigurationManager.AppSettings["FoldersPath"];
+            var path = paths.FolderPath;
             path += "\\" + id.ToString() +"\\";
             IQuizTask task = new QuizTask();
             task.Id = id;
@@ -46,14 +46,14 @@ namespace TestRunner.Logic
             return task;
         }
 
-        private void SetTests(int id)
+        private void SetTests(int id, ConfigurationPaths paths)
         {
-            string path = System.Configuration.ConfigurationManager.AppSettings["FoldersPath"];
+            var path = paths.FolderPath;
             path += "\\" + id.ToString() + "\\";
             TestValues = System.IO.File.ReadAllLines(path + "Tests.txt");
             TestResults = System.IO.File.ReadAllLines(path + "Results.txt");
         }
-        public CheckTaskResponse CheckCode(CheckTaskRequest request)
+        public CheckTaskResponse CheckCode(CheckTaskRequest request, ConfigurationPaths paths)
         {
             var programPath = Directory.GetCurrentDirectory();
             CheckTaskResponse answer = new CheckTaskResponse();
@@ -62,15 +62,14 @@ namespace TestRunner.Logic
             answer.Result = true;
             Compiler = new CodeCompiler();
             Compiler.CreateCs(programPath, programName, request.Code);
-            string pathToVsvars32 = System.Configuration.ConfigurationManager.AppSettings["CompilerPath"];
-            ProcessResultModel result = Compiler.CompileProgram(pathToVsvars32, Directory.GetCurrentDirectory());
+            ProcessResultModel result = Compiler.CompileProgram(paths.CompilerPath, Directory.GetCurrentDirectory());
             if (result.ExitCode != 0)
             {
                 answer.Result = false;
                 answer.Message = " Cannot compile this code: " + result.Result;
                 return answer;
             }
-            SetTests(request.Id);
+            SetTests(request.Id, paths);
             answer.Result = true;
             for (int i = 0; i < TestValues.Length; i++)
             {

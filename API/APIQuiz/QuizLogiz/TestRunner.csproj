@@ -45,6 +45,7 @@
     <Compile Include="Models\CheckTaskRequest.cs" />
     <Compile Include="Models\CheckTaskResponse.cs" />
     <Compile Include="Logic\CodeCompiler.cs" />
+    <Compile Include="Models\ConfigurationPaths.cs" />
     <Compile Include="Models\IQuizTask.cs" />
     <Compile Include="Logic\QuizTask.cs" />
     <Compile Include="Logic\TestManager.cs" />
