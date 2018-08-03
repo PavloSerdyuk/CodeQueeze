@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace TestRunner
+namespace TestRunner.Logic
 {
     internal class ProcessResultModel
     {

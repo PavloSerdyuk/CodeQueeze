@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-//using System.Threading.Tasks;
 using System.IO;
-using APIQuiz.Models;
+using TestRunner.Models;
+//using System.Threading.Tasks;
 
-namespace TestRunner
+namespace TestRunner.Logic
 {
     
     public class TaskManager : IBlInterface
