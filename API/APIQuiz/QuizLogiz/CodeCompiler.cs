@@ -1,0 +1,95 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace TestRunner
+{
+    internal class ProcessResultModel
+    {
+        // Структура для повернення результатів з консолі
+        internal int ExitCode; // якщо 0 то все гаразд,  якщо інакше значення то ні
+        internal string Result; // текст виводу програми, чи помилки
+    }
+
+    public class CodeCompiler
+    {
+
+        private string ProgramName;
+
+
+        internal void CreateCs(string programPath, string programName, string programCode)
+        {
+            // Створюєм .cs
+            ProgramName = programName;
+            using (var fs = File.Create(programPath + "/" + programName + ".cs"))
+            {
+                var info = new UTF8Encoding(true).GetBytes(programCode);
+                fs.Write(info, 0, info.Length);
+            }
+        }
+
+        private static ProcessResultModel GetProcessResult(string arguments)
+        {
+            // Метод повертає результат з консолі
+            var cmd = new Process
+            {
+                StartInfo =
+                {
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    StandardOutputEncoding = Encoding.GetEncoding(866),
+                    RedirectStandardError = true,
+                    FileName = @"cmd.exe",
+                    Arguments = @"/C " + arguments
+                }
+            };
+            // Запуск
+            cmd.Start();
+            // Чекати на завершення
+            cmd.WaitForExit();
+            return new ProcessResultModel
+            {
+                ExitCode = cmd.ExitCode,
+                Result = cmd.StandardOutput.ReadToEnd()
+            };
+        }
+
+        internal ProcessResultModel CompileProgram(string pathToVsvars32, string programPath)
+        {
+            // Для того, щоб працювало у всіх папках треба слеш д
+            // Без нього тільки в папці Project прожка працює
+            var arguments = string.Format(
+                "cd /d {0} &" +
+                "VsDevCmd.bat" + "&" +
+                "cd /d {1} &" +
+                "csc  /t:exe {2}.cs",
+                pathToVsvars32, programPath, ProgramName);
+            return GetProcessResult(arguments);
+        }
+
+        internal ProcessResultModel RunExe( string argStrings)
+        {
+            // Результат виконання прожки
+            var arguments = string.Format("{0}.exe", ProgramName) + " " + argStrings;
+            return GetProcessResult(arguments);
+        }
+
+        internal void DeleteFiles(string programPath)
+        {
+            // Чистим не потрібні файли
+            if (File.Exists(programPath + "/" + ProgramName + ".cs"))
+            {
+                File.Delete(programPath + "/" + ProgramName + ".cs");
+            }
+            if (File.Exists(programPath + "/" + ProgramName + ".exe"))
+            {
+                File.Delete(programPath + "/" + ProgramName + ".exe");
+            }
+        }
+    }
+}
