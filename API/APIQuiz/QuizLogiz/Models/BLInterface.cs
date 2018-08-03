@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
+using TestRunner.Logic;
 
 namespace TestRunner.Models
 {
     public interface IBlInterface
     {
-        Task GetTask(int id);
+        IQuizTask GetTask(int id);
         CheckTaskResponse CheckCode(CheckTaskRequest request);
     }
 }

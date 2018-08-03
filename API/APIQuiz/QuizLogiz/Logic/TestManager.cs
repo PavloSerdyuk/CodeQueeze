@@ -9,7 +9,7 @@ namespace TestRunner.Logic
     
     public class TaskManager : IBlInterface
     {
-        private QuizTask myTask;
+        private IQuizTask myTask;
 
         public string[] TestValues;
         public string[] TestResults;
@@ -39,7 +39,7 @@ namespace TestRunner.Logic
 
         }
         
-        public System.Threading.Tasks.Task GetTask(int id)
+        public IQuizTask GetTask(int id)
         {
             throw new NotImplementedException();
         }
