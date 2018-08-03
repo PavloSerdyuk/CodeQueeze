@@ -4,3 +4,8 @@ API/APIQuiz/APIQuiz/bin/
 Client/QuizWeb/.vs/QuizWeb/v15/
 Client/QuizWeb/QuizWeb/obj/
 Client/QuizWeb/.vs/QuizWeb/DesignTimeBuild/
+API/
+*.dll
+*.pdb
+Client/Quiz/Quiz/obj/Debug/netcoreapp2.1/Quiz.TagHelpers.output.cache
+Client/Quiz/Quiz/obj/Debug/netcoreapp2.1/Quiz.TagHelpers.input.cache

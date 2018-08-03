@@ -1,0 +1,24 @@
+﻿@model Quiz.Models.FullTask
+@{
+    ViewData["Title"] = "Task";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>All tasks</title>
+
+</head>
+<body>
+    <div class="container">
+        <p><strong>@Model.Name</strong></p>
+        <p>@Model.Description</p>
+        <div class="form-group">
+            <label for="comment">Your code here:</label>
+            <textarea class="form-control" rows="5" id="comment"></textarea>
+        </div>
+        <a href="~/Home/Check" class="btn btn-success" role="button">Check</a> <br/>
+    </div>
+
+</body>
+</html>
