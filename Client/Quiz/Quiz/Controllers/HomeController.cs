@@ -76,11 +76,11 @@ namespace Quiz.Controllers
             //ДЕСЕРІАЛІЗУВАТИ ДО ПОТРІБНОГО ОБ'ЄКТУ
             //string path = @"https://localhost:44334/api/task";
 
-            //string path = _settings.Value.BaseUrlApi + "/api/task/1"; 
+            string path = _settings.Value.BaseUrlApi + "/api/task"; 
 
-            //FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
+            FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
             
-            FullTask task = new FullTask() {Description = "ghj", Id = 1, Name = "ck"};
+            //FullTask task = new FullTask() {Description = "ghj", Id = 1, Name = "ck"};
 
             _currentTask.Id = task.Id;
             _currentTask.Description = task.Description;
@@ -100,6 +100,7 @@ namespace Quiz.Controllers
 
             string path = _settings.Value.BaseUrlApi + "/api/task";
             var obj = new CheckTaskRequest(){Code = values.Code, Id = values.Id};
+            
             CheckTaskResponse resp = JsonConvert.DeserializeObject<CheckTaskResponse>(PostObject(path, obj).Result);
 
             if (resp.Result)
@@ -111,6 +112,7 @@ namespace Quiz.Controllers
             {
                 ViewBag.AlertClass = "alert alert-danger";
                 ViewBag.AlertText = "Error";
+                ViewBag.Message = resp.Message;
             }
 
             return View(_currentTask);

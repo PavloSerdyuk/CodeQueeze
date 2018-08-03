@@ -12224,11 +12224,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CodeQuizRep\\CodeQueeze\\Client\\Quiz\\Quiz\\Quiz.csproj",
+      "projectUniqueName": "D:\\Projects\\Microsoft Visual Studio\\Quiz\\Quiz\\Quiz.csproj",
       "projectName": "Quiz",
-      "projectPath": "D:\\CodeQuizRep\\CodeQueeze\\Client\\Quiz\\Quiz\\Quiz.csproj",
+      "projectPath": "D:\\Projects\\Microsoft Visual Studio\\Quiz\\Quiz\\Quiz.csproj",
       "packagesPath": "C:\\Users\\Helena\\.nuget\\packages\\",
-      "outputPath": "D:\\CodeQuizRep\\CodeQueeze\\Client\\Quiz\\Quiz\\obj\\",
+      "outputPath": "D:\\Projects\\Microsoft Visual Studio\\Quiz\\Quiz\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

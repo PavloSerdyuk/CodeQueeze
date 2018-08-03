@@ -14,9 +14,6 @@ D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Quiz.Assem
 D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Quiz.TagHelpers.input.cache
 D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Quiz.TagHelpers.output.cache
 D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Quiz.RazorCoreGenerate.cache
-D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.g.cshtml.cs
-D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs
-D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Razor\Views\Home\Privacy.g.cshtml.cs
 D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
 D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
 D:\Projects\Microsoft Visual Studio\Quiz\Quiz\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
