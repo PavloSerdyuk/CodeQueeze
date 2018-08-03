@@ -5,7 +5,7 @@ namespace APIQuiz
 {
     public class TestTasksManager : ITasksManager
     {
-        private readonly ITask _task;
+        private readonly IFullTask _task;
 
         
         public TestTasksManager()
@@ -13,7 +13,7 @@ namespace APIQuiz
             _task = new TestTask();
         }
 
-        public ITask GetTask()
+        public IFullTask GetTask()
         {
             return _task;
         }

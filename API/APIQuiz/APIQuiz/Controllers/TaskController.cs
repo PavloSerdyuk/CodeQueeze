@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using APIQuiz.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 
 namespace APIQuiz.Controllers
@@ -22,14 +23,19 @@ namespace APIQuiz.Controllers
         [HttpGet]
         public ActionResult<TestTask> Get()
         {
-            return new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask()));
+            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask()));
+            res.ContentTypes.Add(new MediaTypeHeaderValue("application/json"));
+            return res;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<TestTask> Get(int id)
         {
-            return "value";
+            var task = new TestTask() {Description = "hgfsdsa", Id = id, Name = "hnfsdsa", SourceCode = "hdffs"};
+            var res = new ObjectResult(JsonConvert.SerializeObject(task));
+            res.ContentTypes.Add(new MediaTypeHeaderValue("application/json"));
+            return res;
         }
 
         // POST api/values

@@ -2,7 +2,7 @@
 
 namespace APIQuiz
 {
-    public class TestTask:ITask
+    public class TestTask: IFullTask
     {
         public int Id { get; set; }
         public string Name { get; set; }
