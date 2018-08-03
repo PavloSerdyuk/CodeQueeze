@@ -1,4 +1,4 @@
-﻿@model Quiz.Models.FullTask
+﻿@model Quiz.Models.ReturnValues
 @{
     ViewData["Title"] = "Task";
 }
@@ -11,13 +11,20 @@
 </head>
 <body>
     <div class="container">
-        <p><strong>@Model.Name</strong></p>
-        <p>@Model.Description</p>
-        <div class="form-group">
-            <label for="comment">Your code here:</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
-        </div>
-        <a href="~/Home/Check" class="btn btn-success" role="button">Check</a> <br/>
+        <p><strong>@ViewBag.Name</strong></p>
+        <p>@ViewBag.Description</p>
+        
+        <form asp-controller="Home" asp-action="Check" method="post">
+            <div class="form-group">
+                <label for="code">Your code here:</label>
+                <textarea asp-for="Code" rows="7" class="form-control" id="code"></textarea>
+            </div>
+                <input type="hidden" name="id" value="@ViewBag.Id" asp-for="Id"/>
+                <button class="btn btn-success" type="submit">Check</button>
+        </form>
+            
+        
+        <!--<a href="~/Home/Check" class="btn btn-success" role="button">Check</a> <br/>-->
     </div>
 
 </body>

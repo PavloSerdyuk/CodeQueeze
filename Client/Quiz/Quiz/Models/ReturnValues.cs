@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Quiz.Models
 {
-    public class FullTask
+    public class ReturnValues
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Code { get; set; }
     }
 }

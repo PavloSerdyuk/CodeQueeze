@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -16,10 +17,12 @@ namespace Quiz.Controllers
     public class HomeController : Controller
     {
         private readonly IOptions<AppSettings> _settings;
+        private CurrentTask _currentTask;
 
         public HomeController(IOptions<AppSettings> settings)
         {
             _settings = settings;
+            _currentTask = new CurrentTask();
         }
 
         public IActionResult Index()
@@ -53,7 +56,14 @@ namespace Quiz.Controllers
 
             return result.Result;
         }
-        
+
+        public static async Task<string> PostObject(string path, object value)
+        {
+            var response = await HttpHelper.Post(path, value);
+            var result = HttpHelper.ContentAsString(response);
+            return result.Result;
+        }
+
         public IActionResult Task()
         {
             //HttpResponseMessage response = new HttpResponseMessage();
@@ -65,31 +75,51 @@ namespace Quiz.Controllers
             //ВИБРАТИ ШЛЯХ ПУСТИЙ (ДЛЯ РАНДОМУ) АБО З ІД (ДЛЯ КОНКРЕТНОГО), ВІДПОВІДНО 
             //ДЕСЕРІАЛІЗУВАТИ ДО ПОТРІБНОГО ОБ'ЄКТУ
             //string path = @"https://localhost:44334/api/task";
-            string path = _settings.Value.BaseUrlApi + "/api/task/1"; 
 
-            FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
+            //string path = _settings.Value.BaseUrlApi + "/api/task/1"; 
 
+            //FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
+            
+            FullTask task = new FullTask() {Description = "ghj", Id = 1, Name = "ck"};
 
+            _currentTask.Id = task.Id;
+            _currentTask.Description = task.Description;
+            _currentTask.Name = task.Name;
+
+            ViewBag.Description = task.Description;
+            ViewBag.Name = task.Name;
+            ViewBag.Id = task.Id;
             ViewBag.AlertClass = "";
             ViewBag.AlertText = "";
-            return View(task);
+            return View();
         }
-
-        public IActionResult Check()
+        
+        public IActionResult Check(Quiz.Models.ReturnValues values)
         {
-            ViewBag.AlertClass = "alert alert-success";
-            ViewBag.AlertText = "Success";
-            //АБО ЯКЩО РЕЗУЛЬТАТ НЕПРАВИЛЬНИЙ   
-            //ViewBag.AlertClass = "alert alert-danger";
-            //ViewBag.AlertText = "Error";
+            _currentTask.Code = values.Code;
 
-            //ЗАПУСТИТИ POST МЕТОД, ЯКИЙ ДІСТАНЕ ТАСК І РЕЗУЛЬТАТ, ВІДПОВІДНО ЦЕ І ПЕРЕДАТИ У В'ЮШКУ
-            return View(new Quiz.Models.FullTask()
+            string path = _settings.Value.BaseUrlApi + "/api/task";
+            var obj = new CheckTaskRequest(){Code = values.Code, Id = values.Id};
+            CheckTaskResponse resp = JsonConvert.DeserializeObject<CheckTaskResponse>(PostObject(path, obj).Result);
+
+            if (resp.Result)
             {
-                Id = 1,
-                Name = "Game 1",
-                Description = "I dunno what to write here",
-            });
+                ViewBag.AlertClass = "alert alert-success";
+                ViewBag.AlertText = "Success";
+            }
+            else
+            {
+                ViewBag.AlertClass = "alert alert-danger";
+                ViewBag.AlertText = "Error";
+            }
+
+            return View(_currentTask);
+            //return View(new Quiz.Models.FullTask()
+            //{
+            //    Id = 1,
+            //    Name = "Game 1",
+            //    Description = "I dunno what to write here",
+            //});
         }
 
         //public IActionResult Contact()

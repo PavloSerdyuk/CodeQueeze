@@ -1,4 +1,4 @@
-﻿@model Quiz.Models.FullTask
+﻿@model Quiz.Models.CurrentTask
 @{
     ViewData["Title"] = "Task";
 }
@@ -15,7 +15,7 @@
         <p>@Model.Description</p>
         <div class="form-group">
             <label for="comment">Your code here:</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
+            <textarea class="form-control" rows="5" id="comment">@Model.Code</textarea>
         </div>
         <a href="~/Home/Task" class="btn btn-success" role="button">Next Task</a>
         <div class="@ViewBag.AlertClass">

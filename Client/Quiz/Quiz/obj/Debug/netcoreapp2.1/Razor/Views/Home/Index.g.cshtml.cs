@@ -65,7 +65,7 @@ using Quiz.Models;
             WriteLiteral("<!DOCTYPE html>\r\n\r\n<html>\r\n");
             EndContext();
             BeginContext(130, 444, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8bd66675165a4ec187c4b63249d1b069", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f8898ef4143e44318f7a2eb076eb83da", async() => {
                 BeginContext(136, 431, true);
                 WriteLiteral(@"
     <title>All tasks</title>
@@ -92,12 +92,12 @@ using Quiz.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(576, 162, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3fd2e107a3514b19a1fc81945ccd8529", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "155b1d01aeaf4133a51f5f6ac9f6d648", async() => {
                 BeginContext(582, 55, true);
                 WriteLiteral("\r\n<div class=\"container\">\r\n    <h2>Good luck</h2>\r\n    ");
                 EndContext();
                 BeginContext(637, 82, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3aa8e0b2d3944905a0cabeb7f4244a0a", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "90f48c6095eb40de8555d55d4fcf34dc", async() => {
                     BeginContext(697, 18, true);
                     WriteLiteral("Pick a random task");
                     EndContext();
