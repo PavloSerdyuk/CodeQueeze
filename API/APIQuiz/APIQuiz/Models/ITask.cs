@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace APIQuiz.Models
 {
-    public interface ITask
+    public interface IFullTask
     {
         int Id { get; set; }
         string Name { get; set; }

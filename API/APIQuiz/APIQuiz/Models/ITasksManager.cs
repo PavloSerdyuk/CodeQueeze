@@ -7,7 +7,7 @@ namespace APIQuiz.Models
 {
     public interface ITasksManager
     {
-        ITask GetTask();
+        IFullTask GetTask();
         CheckTaskResponse CheckTask(CheckTaskRequest request);
     }
 }
