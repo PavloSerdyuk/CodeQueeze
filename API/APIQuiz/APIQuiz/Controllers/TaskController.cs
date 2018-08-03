@@ -15,17 +15,24 @@ namespace APIQuiz.Controllers
     public class TaskController : ControllerBase
     {
         private readonly IBlInterface _tasksManager;
+        private ConfigurationPaths path;
 
         public TaskController(IBlInterface service)
         {
             _tasksManager = service;
+            path = new ConfigurationPaths()
+            {
+                CompilerPath = @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools",
+                FolderPath = @"D:\Exoft\Code\API\APIQuiz\APIQuiz\TestTask"
+            };
+
         }
         //GET api/task
         //id 1!!!!!!!!!!!!
         [HttpGet]
         public ActionResult<IQuizTask> Get()
         {
-            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask(1)));
+            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask(1, path)));
             res.ContentTypes.Add(new MediaTypeHeaderValue("application/json"));
             return res;
         }
@@ -34,18 +41,18 @@ namespace APIQuiz.Controllers
         [HttpGet("{id}")]
         public ActionResult<IQuizTask> Get(int id)
         {
-            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask(id)));
+            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask(id, path)));
             res.ContentTypes.Add(new MediaTypeHeaderValue("application/json"));
             return res;
         }
 
         // POST api/task
         [HttpPost]
-        public CheckTaskResponse Post([FromBody] string request)
+        public ActionResult<CheckTaskResponse> Post([FromBody] CheckTaskRequest value)
         {
-            var result = JsonConvert.DeserializeObject<CheckTaskRequest>(request);
-            
-            return _tasksManager.CheckCode(result); 
+            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.CheckCode(value, path)));
+            res.ContentTypes.Add(new MediaTypeHeaderValue("application/json"));
+            return res;
         }
 
 
