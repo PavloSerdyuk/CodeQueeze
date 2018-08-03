@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APIQuiz.Test;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
@@ -13,32 +14,32 @@ namespace APIQuiz.Controllers
     [ApiController]
     public class TaskController : ControllerBase
     {
-        private readonly ITasksManager _tasksManager;
+        private readonly IBlInterface _tasksManager;
 
         public TaskController(IBlInterface service)
         {
-            _tasksManager = test;
+            _tasksManager = service;
         }
-        //GET api/values
+        //GET api/task
+        //id 1!!!!!!!!!!!!
         [HttpGet]
-        public ActionResult<TestTask> Get()
+        public ActionResult<IQuizTask> Get()
         {
-            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask()));
+            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask(1)));
             res.ContentTypes.Add(new MediaTypeHeaderValue("application/json"));
             return res;
         }
 
-        // GET api/values/5
+        // GET api/task/5
         [HttpGet("{id}")]
-        public ActionResult<TestTask> Get(int id)
+        public ActionResult<IQuizTask> Get(int id)
         {
-            var task = new TestTask() {Description = "hgfsdsa", Id = id, Name = "hnfsdsa", SourceCode = "hdffs"};
-            var res = new ObjectResult(JsonConvert.SerializeObject(task));
+            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask(id)));
             res.ContentTypes.Add(new MediaTypeHeaderValue("application/json"));
             return res;
         }
 
-        // POST api/values
+        // POST api/task
         [HttpPost]
         public void Post([FromBody] string value)
         {
@@ -46,13 +47,13 @@ namespace APIQuiz.Controllers
 
 
 
-        // PUT api/values/5
+        // PUT api/task/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/task/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

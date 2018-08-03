@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APIQuiz.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using TestRunner.Logic;
 using TestRunner.Models;
 
 namespace APIQuiz
@@ -28,7 +30,7 @@ namespace APIQuiz
         public void ConfigureServices(IServiceCollection services)
         {
            // services.AddScoped<ITasksManager, TestTasksManager>();
-            services.AddScoped<IBlInterface, TaskManager>();
+            services.AddScoped<IBlInterface, TestTaskManager>();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
