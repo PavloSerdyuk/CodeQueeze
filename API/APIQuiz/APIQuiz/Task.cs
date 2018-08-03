@@ -6,7 +6,7 @@ using APIQuiz.Models;
 
 namespace APIQuiz
 {
-    public class Task:ITask
+    public class Task:IFullTask
     {
         public int Id { get; set; }
         public string Name { get; set; }
