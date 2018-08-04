@@ -9,3 +9,7 @@ API/APIQuiz/QuizLogiz/.vs/
 API/APIQuiz/QuizLogiz/bin/
 /Client/Quiz/.vs/Quiz/v15
 /Client/Quiz/.vs/config
+*.dll
+*.pdb
+Client/Quiz/Quiz/obj/Debug/netcoreapp2.1/Quiz.TagHelpers.input.cache
+Client/Quiz/Quiz/obj/Debug/netcoreapp2.1/Quiz.TagHelpers.output.cache
