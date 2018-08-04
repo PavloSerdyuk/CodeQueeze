@@ -1,0 +1,31 @@
+﻿@model Quiz.Models.ReturnValues
+@{
+    ViewData["Title"] = "Task";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>All tasks</title>
+
+</head>
+<body>
+    <div class="container">
+        <p><strong>@ViewBag.Name</strong></p>
+        <p>@ViewBag.Description</p>
+        
+        <form asp-controller="Home" asp-action="Check" method="post">
+            <div class="form-group">
+                <label for="code">Your code here:</label>
+                <textarea asp-for="Code" rows="7" class="form-control" id="code"></textarea>
+            </div>
+                <input type="hidden" name="id" value="@ViewBag.Id" asp-for="Id"/>
+                <button class="btn btn-success" type="submit">Check</button>
+        </form>
+            
+        
+        <!--<a href="~/Home/Check" class="btn btn-success" role="button">Check</a> <br/>-->
+    </div>
+
+</body>
+</html>
