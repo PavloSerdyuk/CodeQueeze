@@ -31,6 +31,7 @@ namespace APIQuiz
         {
             services.AddScoped<IBlInterface, TaskManager>();
             //services.AddScoped<IBlInterface, TestTaskManager>();
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
