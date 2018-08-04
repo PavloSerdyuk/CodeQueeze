@@ -18,12 +18,14 @@ namespace APIQuiz.Controllers
         private ConfigurationPaths path;
 
         public TaskController(IBlInterface service)
-        {
+        {   
             _tasksManager = service;
             path = new ConfigurationPaths()
             {
                 CompilerPath = @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools",
-                FolderPath = @"D:\Exoft\Code\API\APIQuiz\APIQuiz\TestTask"
+                FolderPath = @"D:\Exoft\Code\API\APIQuiz\APIQuiz\TestTask",
+                CsFilePath = @"D:\Exoft\Code\API\APIQuiz\APIQuiz\CS"
+
             };
 
         }
