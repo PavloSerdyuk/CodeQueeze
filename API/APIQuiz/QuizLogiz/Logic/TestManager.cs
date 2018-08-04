@@ -55,16 +55,15 @@ namespace TestRunner.Logic
         }
         public CheckTaskResponse CheckCode(CheckTaskRequest request, ConfigurationPaths paths)
         {
-            var programPath = Directory.GetCurrentDirectory();
+            var programPath = paths.CsFilePath;
             CheckTaskResponse answer = new CheckTaskResponse();
             answer.Id = request.Id;
             const string programName = "test";
             answer.Result = true;
             Compiler = new CodeCompiler();
             Compiler.CreateCs(programPath, programName, request.Code);
-            ProcessResultModel result = Compiler.CompileProgram(paths.CompilerPath, Directory.GetCurrentDirectory());
-            if (result.ExitCode != 0)
-            {
+            ProcessResultModel result = Compiler.CompileProgram(paths.CompilerPath, programPath);
+            if (result.ExitCode != 0){
                 answer.Result = false;
                 answer.Message = " Cannot compile this code: " + result.Result;
                 return answer;
