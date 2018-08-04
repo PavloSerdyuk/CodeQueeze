@@ -76,7 +76,7 @@ namespace Quiz.Controllers
             //ДЕСЕРІАЛІЗУВАТИ ДО ПОТРІБНОГО ОБ'ЄКТУ
             //string path = @"https://localhost:44334/api/task";
 
-            string path = _settings.Value.BaseUrlApi + "/api/task"; 
+            string path = _settings.Value.BaseUrlApi + "/api/task/1"; 
 
             FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
             
