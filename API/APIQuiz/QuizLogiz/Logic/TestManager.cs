@@ -13,7 +13,7 @@ namespace TestRunner.Logic
         public string[] TestValues;
         public string[] TestResults;
         
-        private CodeCompiler Compiler;
+        private CompileManager Compiler;
 
         public ProcessResultModel RunTest(string testValues, string expectation)
         {
@@ -22,7 +22,7 @@ namespace TestRunner.Logic
             // Та дивитись чи ці тести виконались правильно                      
             var runExe = Compiler.RunExe(testValues);
             ProcessResultModel result = new ProcessResultModel();
-            if (runExe.Result == expectation)
+            if (runExe == expectation)
             {
                 result.ExitCode = 0;
             }
@@ -31,7 +31,7 @@ namespace TestRunner.Logic
                 result.ExitCode = 1;
             }
 
-            result.Result = runExe.Result;
+            result.Result = runExe;
             return result;
         }
         
@@ -55,14 +55,13 @@ namespace TestRunner.Logic
         }
         public CheckTaskResponse CheckCode(CheckTaskRequest request, ConfigurationPaths paths)
         {
-            var programPath = paths.CsFilePath;
+            var programPath = Directory.GetCurrentDirectory();
             CheckTaskResponse answer = new CheckTaskResponse();
             answer.Id = request.Id;
-            const string programName = "test";
             answer.Result = true;
-            Compiler = new CodeCompiler();
-            Compiler.CreateCs(programPath, programName, request.Code);
-            ProcessResultModel result = Compiler.CompileProgram(paths.CompilerPath, programPath);
+            Compiler = new CompileManager();
+
+            ProcessResultModel result = Compiler.CompileCode(request.Code);
             if (result.ExitCode != 0){
                 answer.Result = false;
                 answer.Message = " Cannot compile this code: " + result.Result;
@@ -80,7 +79,7 @@ namespace TestRunner.Logic
                 answer.Message += res.Result;
             }
 
-            Compiler.DeleteFiles(programPath);
+            Compiler.DeleteFiles();
             return answer;
         }
     }
