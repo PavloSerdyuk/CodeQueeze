@@ -19,7 +19,7 @@ namespace TestRunner.Logic
         {
             // Створюєм .cs
             ProgramName = programName;
-            using (var fs = File.Create(programPath + "/CS/" + programName + ".cs"))
+            using (var fs = File.Create(programPath + "\\" + programName + ".cs"))
             {
                 var info = new UTF8Encoding(true).GetBytes(programCode);
                 fs.Write(info, 0, info.Length);
