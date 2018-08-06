@@ -17,7 +17,8 @@ namespace Quiz.Controllers
     public class HomeController : Controller
     {
         private readonly IOptions<AppSettings> _settings;
-        private CurrentTask _currentTask;
+        private static CurrentTask _currentTask;
+        private static int lastId = 0;
 
         public HomeController(IOptions<AppSettings> settings)
         {
@@ -30,30 +31,10 @@ namespace Quiz.Controllers
             return View();
         }
 
-        //public IActionResult About()
-        //{
-        //    ViewData["Message"] = "Your application description page.";
-
-        //    return View();
-        //}
-
         public static async Task<string> GetObject(string path)
         {
             var response = await HttpHelper.Get(path);
-            //return HttpHelper.HttpResponseExtensions.ContentAsJson(response);
-            //string result = null;
             var result = HttpHelper.ContentAsString(response);
-            //response = await client.GetAsync(path);
-
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var formatters = new List<MediaTypeFormatter>() {
-            //        new JsonMediaTypeFormatter(),
-            //        new XmlMediaTypeFormatter()
-            //    };
-            //    result = await response.Content.ReadAsAsync<string>(formatters);
-            //}
-
             return result.Result;
         }
 
@@ -66,21 +47,9 @@ namespace Quiz.Controllers
 
         public IActionResult Task()
         {
-            //HttpResponseMessage response = new HttpResponseMessage();
-            //string path = @"https://localhost:44334/api/task";
-            //string result = GetTaskFromApi(response, path).Result;
-            ////while(!response.IsSuccessStatusCode && result == null) { }
-            //FullTask task = JsonConvert.DeserializeObject<FullTask>(result);
 
-            //ВИБРАТИ ШЛЯХ ПУСТИЙ (ДЛЯ РАНДОМУ) АБО З ІД (ДЛЯ КОНКРЕТНОГО), ВІДПОВІДНО 
-            //ДЕСЕРІАЛІЗУВАТИ ДО ПОТРІБНОГО ОБ'ЄКТУ
-            //string path = @"https://localhost:44334/api/task";
-
-            string path = _settings.Value.BaseUrlApi + "/api/task/1"; 
-
+            string path = _settings.Value.BaseUrlApi + "/api/task" + "/" + (++lastId).ToString(); 
             FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
-            
-            //FullTask task = new FullTask() {Description = "ghj", Id = 1, Name = "ck"};
 
             _currentTask.Id = task.Id;
             _currentTask.Description = task.Description;
@@ -91,6 +60,7 @@ namespace Quiz.Controllers
             ViewBag.Id = task.Id;
             ViewBag.AlertClass = "";
             ViewBag.AlertText = "";
+
             return View();
         }
         
@@ -116,25 +86,7 @@ namespace Quiz.Controllers
             }
 
             return View(_currentTask);
-            //return View(new Quiz.Models.FullTask()
-            //{
-            //    Id = 1,
-            //    Name = "Game 1",
-            //    Description = "I dunno what to write here",
-            //});
         }
-
-        //public IActionResult Contact()
-        //{
-        //    ViewData["Message"] = "Your contact page.";
-
-        //    return View();
-        //}
-
-        //public IActionResult Privacy()
-        //{
-        //    return View();
-        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

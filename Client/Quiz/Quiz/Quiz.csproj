@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Home\StyleSheets\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="Views\Home\Check.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
