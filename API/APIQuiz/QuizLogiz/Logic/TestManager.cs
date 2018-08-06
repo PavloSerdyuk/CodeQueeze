@@ -14,14 +14,15 @@ namespace TestRunner.Logic
         public string[] TestResults;
         
         private CodeCompiler Compiler;
-
-        public ProcessResultModel RunTest(string testValues, string expectation)
+        
+        public ProcessResultModel RunTest(string testValues, string expectation,string programPath)
         {
             
             // Потрібно розібратись як закидувати в компілятор код 
             // Та дивитись чи ці тести виконались правильно                      
-            var runExe = Compiler.RunExe(testValues);
+            var runExe = Compiler.RunExe(programPath, testValues);
             ProcessResultModel result = new ProcessResultModel();
+            result.Result = runExe.Result.Trim();
             if (result.Result.CompareTo(expectation) == 0)
             {
                 result.ExitCode = 0;
@@ -31,7 +32,7 @@ namespace TestRunner.Logic
                 result.ExitCode = 1;
             }
 
-            result.Result = runExe.Result;
+            
             return result;
         }
         
@@ -69,9 +70,10 @@ namespace TestRunner.Logic
             }
             SetTests(request.Id, paths);
             answer.Result = true;
+            //var r = RunTest("", "hello");
             for (int i = 0; i < TestValues.Length; i++)
             {
-                var res = RunTest(TestValues[i], TestResults[i]);
+                var res = RunTest(TestValues[i], TestResults[i], paths.CsFilePath);
                 if (res.ExitCode != 0)
                 {
                     answer.Result = false;

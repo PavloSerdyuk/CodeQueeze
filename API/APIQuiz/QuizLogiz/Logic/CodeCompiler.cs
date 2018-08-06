@@ -66,10 +66,10 @@ namespace TestRunner.Logic
             return GetProcessResult(arguments);
         }
 
-        internal ProcessResultModel RunExe( string argStrings)
+        internal ProcessResultModel RunExe( string programPath, string argStrings)
         {
             // Результат виконання прожки
-            var arguments = string.Format("{0}.exe", ProgramName) + " " + argStrings;
+            var arguments = string.Format("{0}\\{1}.exe", programPath, ProgramName) + " " + argStrings;
             return GetProcessResult(arguments);
         }
 
@@ -80,9 +80,9 @@ namespace TestRunner.Logic
             {
                 File.Delete(programPathCs + "/" + ProgramName + ".cs");
             }
-            if (File.Exists(Directory.GetCurrentDirectory() + "/" + ProgramName + ".exe"))
+            if (File.Exists(programPathCs + "/" + ProgramName + ".exe"))
             {
-                File.Delete(Directory.GetCurrentDirectory() + "/" + ProgramName + ".exe");
+                File.Delete(programPathCs + "/" + ProgramName + ".exe");
             }
         }
     }
