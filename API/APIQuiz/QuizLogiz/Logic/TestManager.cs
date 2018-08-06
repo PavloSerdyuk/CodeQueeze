@@ -22,7 +22,7 @@ namespace TestRunner.Logic
             // Та дивитись чи ці тести виконались правильно                      
             var runExe = Compiler.RunExe(testValues);
             ProcessResultModel result = new ProcessResultModel();
-            if (runExe.Result == expectation)
+            if (result.Result.CompareTo(expectation) == 0)
             {
                 result.ExitCode = 0;
             }
