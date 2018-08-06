@@ -73,16 +73,16 @@ namespace TestRunner.Logic
             return GetProcessResult(arguments);
         }
 
-        internal void DeleteFiles(string programPath)
+        internal void DeleteFiles(string programPathCs)
         {
             // Чистим не потрібні файли
-            if (File.Exists(programPath + "/" + ProgramName + ".cs"))
+            if (File.Exists(programPathCs + "/" + ProgramName + ".cs"))
             {
-                File.Delete(programPath + "/" + ProgramName + ".cs");
+                File.Delete(programPathCs + "/" + ProgramName + ".cs");
             }
-            if (File.Exists(programPath + "/" + ProgramName + ".exe"))
+            if (File.Exists(Directory.GetCurrentDirectory() + "/" + ProgramName + ".exe"))
             {
-                File.Delete(programPath + "/" + ProgramName + ".exe");
+                File.Delete(Directory.GetCurrentDirectory() + "/" + ProgramName + ".exe");
             }
         }
     }

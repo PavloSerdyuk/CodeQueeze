@@ -23,7 +23,7 @@ namespace APIQuiz.Controllers
             path = new ConfigurationPaths()
             {
                 CompilerPath = @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools",
-                FolderPath = @"D:\Exoft\Code\API\APIQuiz\APIQuiz\TestTask",
+                FolderPath = @"C:\Users\User\Documents\CodeQueeze\API\APIQuiz\APIQuiz\TestTask",
                 CsFilePath = @"D:\Exoft\Code\API\APIQuiz\APIQuiz\CS"
 
             };

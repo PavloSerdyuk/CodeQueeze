@@ -13,7 +13,7 @@ namespace TestRunner.Logic
         public string[] TestValues;
         public string[] TestResults;
         
-        private CompileManager Compiler;
+        private CodeCompiler Compiler;
 
         public ProcessResultModel RunTest(string testValues, string expectation)
         {
@@ -22,7 +22,7 @@ namespace TestRunner.Logic
             // Та дивитись чи ці тести виконались правильно                      
             var runExe = Compiler.RunExe(testValues);
             ProcessResultModel result = new ProcessResultModel();
-            if (runExe == expectation)
+            if (runExe.Result == expectation)
             {
                 result.ExitCode = 0;
             }
@@ -31,7 +31,7 @@ namespace TestRunner.Logic
                 result.ExitCode = 1;
             }
 
-            result.Result = runExe;
+            result.Result = runExe.Result;
             return result;
         }
         
@@ -59,9 +59,9 @@ namespace TestRunner.Logic
             CheckTaskResponse answer = new CheckTaskResponse();
             answer.Id = request.Id;
             answer.Result = true;
-            Compiler = new CompileManager();
-
-            ProcessResultModel result = Compiler.CompileCode(request.Code);
+            Compiler = new CodeCompiler();
+            Compiler.CreateCs(paths.CsFilePath, "test", request.Code);
+            ProcessResultModel result = Compiler.CompileProgram(paths.CompilerPath, paths.CsFilePath);
             if (result.ExitCode != 0){
                 answer.Result = false;
                 answer.Message = " Cannot compile this code: " + result.Result;
@@ -79,7 +79,7 @@ namespace TestRunner.Logic
                 answer.Message += res.Result;
             }
 
-            Compiler.DeleteFiles();
+            Compiler.DeleteFiles(paths.CsFilePath);
             return answer;
         }
     }
