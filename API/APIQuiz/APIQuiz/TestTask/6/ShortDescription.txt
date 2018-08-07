@@ -1,0 +1,1 @@
+You accepts an array, that write a string in the form of a phone number.

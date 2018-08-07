@@ -1,1 +1,4 @@
-Please type "Hello World!"
+Please type "Hello World!".
+
+Notice:
+Use Console.Write("Your answer").

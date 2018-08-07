@@ -1,1 +1,7 @@
 Very simple, given a number, find its opposite.
+
+Example:
+4 => returns -4
+
+Notice:
+Use Console.Write("Your answer").
