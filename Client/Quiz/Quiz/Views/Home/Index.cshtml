@@ -16,10 +16,16 @@
 <body> 
 <div class="container">
     <h2>List of tasks</h2>
-    <div class="list-group">
+    <div class="list-group" style="width : 500px; ">
         @foreach (var task in @ViewBag.MyTasks)
         {
-            <a href="/Home/Task/@task.Id" class="list-group-item">@task.Name</a>
+            <a href="/Home/Task/@task.Id" class="list-group-item" style="border-style : hidden;">
+            <b>
+                @task.Id. @task.Name
+            </b>
+                <br/>
+                @task.ShortDescription
+            </a>
         }
     </div>
     
