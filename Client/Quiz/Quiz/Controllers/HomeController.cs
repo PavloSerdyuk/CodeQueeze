@@ -17,13 +17,11 @@ namespace Quiz.Controllers
     public class HomeController : Controller
     {
         private readonly IOptions<AppSettings> _settings;
-        private static CurrentTask _currentTask;
-        private static int lastId = 0;
+        private static CurrentTask _currentTask = new CurrentTask();
 
         public HomeController(IOptions<AppSettings> settings)
         {
             _settings = settings;
-            _currentTask = new CurrentTask();
         }
 
         public IActionResult Index()
@@ -47,8 +45,8 @@ namespace Quiz.Controllers
 
         public IActionResult Task()
         {
-
-            string path = _settings.Value.BaseUrlApi + "/api/task" + "/" + (++lastId).ToString(); 
+            var id = _currentTask.Completed ? ++_currentTask.Id : _currentTask.Id;
+            string path = _settings.Value.BaseUrlApi + "/api/task/" + id; 
             FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
 
             _currentTask.Id = task.Id;
@@ -77,12 +75,14 @@ namespace Quiz.Controllers
             {
                 ViewBag.AlertClass = "alert alert-success";
                 ViewBag.AlertText = "Success";
+                _currentTask.Completed = true;
             }
             else
             {
                 ViewBag.AlertClass = "alert alert-danger";
                 ViewBag.AlertText = "Error";
                 ViewBag.Message = resp.Message;
+                _currentTask.Completed = false;
             }
 
             return View(_currentTask);

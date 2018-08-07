@@ -15,5 +15,16 @@ namespace Quiz.Models
     public class CurrentTask : FullTask
     {
         public string Code;
+        public bool Completed;
+
+        public CurrentTask()
+        {
+            Id = 1;
+            Name = "";
+            Description = "";
+            Code = "";
+            Completed = false;
+        }
+
     }
 }
