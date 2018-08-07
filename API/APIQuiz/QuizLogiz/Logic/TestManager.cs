@@ -61,32 +61,49 @@ namespace TestRunner.Logic
         }
         public CheckTaskResponse CheckCode(CheckTaskRequest request, ConfigurationPaths paths)
         {
-            var programPath = Directory.GetCurrentDirectory();
-            CheckTaskResponse answer = new CheckTaskResponse();
-            answer.Id = request.Id;
-            answer.Result = true;
-            Compiler = new CodeCompiler();
-            Compiler.CreateCs(paths.CsFilePath, "test", request.Code);
-            ProcessResultModel result = Compiler.CompileProgram(paths.CompilerPath, paths.CsFilePath);
-            if (result.ExitCode != 0){
+            CheckTaskResponse answer = new CheckTaskResponse() { Id = request.Id, Result = true };
+     
+            if (request.Code == null)
+            {
+                answer.Message = "Your code is empty, please, enter code";
                 answer.Result = false;
-                answer.Message = " Cannot compile this code: " + result.Result;
                 return answer;
             }
-            SetTests(request.Id, paths);
-            answer.Result = true;
-            for (int i = 0; i < TestValues.Length; i++)
+           
+            Compiler = new CodeCompiler();
+
+            try
             {
-                var res = RunTest(TestValues[i], TestResults[i], paths.CsFilePath);
-                if (res.ExitCode != 0)
+                Compiler.CreateCs(paths.CsFilePath, "test", request.Code);
+                ProcessResultModel result = Compiler.CompileProgram(paths.CompilerPath, paths.CsFilePath);
+                if (result.ExitCode != 0)
                 {
                     answer.Result = false;
+                    answer.Message = " Cannot compile this code: " + result.Result;
+                    return answer;
                 }
-                answer.Message += res.Result;
+                SetTests(request.Id, paths);
+                for (int i = 0; i < TestValues.Length; i++)
+                {
+                    var res = RunTest(TestValues[i], TestResults[i], paths.CsFilePath);
+                    if (res.ExitCode != 0)
+                    {
+                        answer.Result = false;
+                    }
+                    answer.Message += res.Result;
+                }
+
+                Compiler.DeleteFiles(paths.CsFilePath);
+            }
+            catch (Exception e)
+            {
+                answer.Result = false;
+                answer.Message = e.Message;
+                return answer;
             }
 
-            Compiler.DeleteFiles(paths.CsFilePath);
             return answer;
+
         }
     }
 }

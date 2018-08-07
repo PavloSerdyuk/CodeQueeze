@@ -1,6 +1,7 @@
 ﻿@model Quiz.Models.ReturnValues
 @{
     ViewData["Title"] = "Task";
+    
 }
 <!DOCTYPE html>
 
@@ -11,14 +12,15 @@
 </head>
 <body>
     <div class="container">
-        <p><strong>@ViewBag.CurrentTask.Name</strong></p>
+        <br/>
+        <h1><strong>@ViewBag.CurrentTask.Name</strong></h1>
         <p>@ViewBag.CurrentTask.ShortDescription</p>
         <p>@ViewBag.CurrentTask.FullDescription</p>
 
         <form asp-controller="Home" asp-action="Check" method="post">
             <div class="form-group">
                 <label for="code">Your code here:</label>
-                <textarea asp-for="Code" rows="7" class="form-control" id="code"></textarea>
+                <textarea asp-for="Code" rows="15" class="form-control" id="code"></textarea>
             </div>
             @if (!@ViewBag.CurrentTask.Completed)
             {
