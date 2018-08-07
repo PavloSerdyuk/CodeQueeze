@@ -32,16 +32,19 @@ namespace Quiz.Controllers
             return View();
         }
 
-
         public IActionResult Task(int id)
         {
-            string path = _settings.Value.BaseUrlApi + "/api/task/" + id; 
-            FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
+            if (id != _currentTask.Id)
+            {
+                string path = _settings.Value.BaseUrlApi + "/api/task/" + id;
+                FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
 
-            _currentTask.Id = task.Id;
-            _currentTask.Description = task.Description;
-            _currentTask.Name = task.Name;
-            _currentTask.Completed = false;
+                _currentTask.Id = task.Id;
+                _currentTask.ShortDescription = task.ShortDescription;
+                _currentTask.FullDescription = task.FullDescription;
+                _currentTask.Name = task.Name;
+                _currentTask.Completed = false;
+            }
 
             ViewBag.CurrentTask = _currentTask;
             ViewBag.AlertClass = "";

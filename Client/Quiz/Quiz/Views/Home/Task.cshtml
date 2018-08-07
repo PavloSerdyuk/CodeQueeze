@@ -12,7 +12,8 @@
 <body>
     <div class="container">
         <p><strong>@ViewBag.CurrentTask.Name</strong></p>
-        <p>@ViewBag.CurrentTask.Description</p>
+        <p>@ViewBag.CurrentTask.ShortDescription</p>
+        <p>@ViewBag.CurrentTask.FullDescription</p>
 
         <form asp-controller="Home" asp-action="Check" method="post">
             <div class="form-group">
@@ -29,8 +30,8 @@
         </div>
         @if (@ViewBag.CurrentTask.Completed)
         {
-            ViewBag.CurrentTask.Id++;
-            <a href="~/Home/Task/@ViewBag.CurrentTask.Id" class="btn btn-success" role="button">Next Task</a>
+            var id = ViewBag.CurrentTask.Id + 1;
+            <a href="~/Home/Task/@id" class="btn btn-success" role="button">Next Task</a>
         }
     </div>
 

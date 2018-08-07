@@ -9,7 +9,8 @@ namespace Quiz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string ShortDescription { get; set; }
+        public string FullDescription { get; set; }
     }
 
     public class CurrentTask : FullTask
@@ -19,9 +20,10 @@ namespace Quiz.Models
 
         public CurrentTask()
         {
-            Id = 1;
+            Id = 0;
             Name = "";
-            Description = "";
+            ShortDescription = "";
+            FullDescription = "";
             Code = "";
             Completed = false;
         }
