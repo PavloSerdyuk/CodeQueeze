@@ -26,8 +26,8 @@ namespace APIQuiz.Controllers
                 CompilerPath = @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools",
                 FolderPath = @".\TestTask",
                 //current - \API\APIQuiz\APIQuiz
-                CsFilePath = Directory.GetCurrentDirectory()
-                //CsFilePath = Directory.GetParent(Directory.GetCurrentDirectory()).FullName
+                //CsFilePath = Directory.GetCurrentDirectory()
+                CsFilePath = Directory.GetParent(@"..\").FullName
             };
 
         }
