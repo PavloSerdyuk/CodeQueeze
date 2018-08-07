@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<Quiz.Models.FullTask>
 @{
     ViewData["Title"] = "Index";
-    Layout = null;
 }
 <!DOCTYPE html>
 
@@ -16,14 +15,14 @@
 </head>
 <body> 
 <div class="container">
-    <ul>
-        @foreach ( var task in @ViewBag.MyTasks)
+    <h2>List of tasks</h2>
+    <div class="list-group">
+        @foreach (var task in @ViewBag.MyTasks)
         {
-            <li>
-                <a href="/Home/Task/" + @task.Id>@task.Name</a>
-            </li>
+            <a href="/Home/Task/@task.Id" class="list-group-item">@task.Name</a>
         }
-    </ul>
+    </div>
+    
     <h2>Good luck</h2>
     <a href="~/Home/Task" class="btn btn-success" role="button">Pick a random task</a>
 </div>

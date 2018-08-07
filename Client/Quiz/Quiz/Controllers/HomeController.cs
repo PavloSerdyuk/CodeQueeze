@@ -33,9 +33,9 @@ namespace Quiz.Controllers
         }
 
 
-        public IActionResult Task()
+        public IActionResult Task(int id)
         {
-            var id = _currentTask.Completed ? ++_currentTask.Id : _currentTask.Id;
+           // var id = _currentTask.Completed ? ++_currentTask.Id : _currentTask.Id;
             string path = _settings.Value.BaseUrlApi + "/api/task/" + id; 
             FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
 
