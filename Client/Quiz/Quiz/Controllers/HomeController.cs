@@ -35,17 +35,15 @@ namespace Quiz.Controllers
 
         public IActionResult Task(int id)
         {
-           // var id = _currentTask.Completed ? ++_currentTask.Id : _currentTask.Id;
             string path = _settings.Value.BaseUrlApi + "/api/task/" + id; 
             FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
 
             _currentTask.Id = task.Id;
             _currentTask.Description = task.Description;
             _currentTask.Name = task.Name;
+            _currentTask.Completed = false;
 
-            ViewBag.Description = task.Description;
-            ViewBag.Name = task.Name;
-            ViewBag.Id = task.Id;
+            ViewBag.CurrentTask = _currentTask;
             ViewBag.AlertClass = "";
             ViewBag.AlertText = "";
 
@@ -57,10 +55,12 @@ namespace Quiz.Controllers
             _currentTask.Code = values.Code;
 
             string path = _settings.Value.BaseUrlApi + "/api/task";
-            var obj = new CheckTaskRequest(){Code = values.Code, Id = values.Id};
+            var obj = new CheckTaskRequest(){Code = _currentTask.Code, Id = _currentTask.Id};
             
             CheckTaskResponse resp = JsonConvert.DeserializeObject<CheckTaskResponse>(PostObject(path, obj).Result);
 
+            ViewBag.CurrentTask = _currentTask;
+            
             if (resp.Result)
             {
                 ViewBag.AlertClass = "alert alert-success";
@@ -75,7 +75,7 @@ namespace Quiz.Controllers
                 _currentTask.Completed = false;
             }
 
-            return View(_currentTask);
+            return View("Task");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
