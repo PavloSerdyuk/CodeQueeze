@@ -75,7 +75,6 @@ namespace TestRunner.Logic
             }
             SetTests(request.Id, paths);
             answer.Result = true;
-            //var r = RunTest("", "hello");
             for (int i = 0; i < TestValues.Length; i++)
             {
                 var res = RunTest(TestValues[i], TestResults[i], paths.CsFilePath);

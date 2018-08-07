@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using APIQuiz.Test;
@@ -23,9 +24,10 @@ namespace APIQuiz.Controllers
             path = new ConfigurationPaths()
             {
                 CompilerPath = @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools",
-                FolderPath = @"D:\CodeQuizRep\CodeQueeze\API\APIQuiz\APIQuiz\TestTask",
-                CsFilePath = @"D:\"
-
+                FolderPath = @".\TestTask",
+                //current - \API\APIQuiz\APIQuiz
+                CsFilePath = Directory.GetCurrentDirectory()
+                //CsFilePath = Directory.GetParent(Directory.GetCurrentDirectory()).FullName
             };
 
         }
