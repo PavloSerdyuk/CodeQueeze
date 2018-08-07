@@ -47,6 +47,7 @@ namespace TestRunner.Logic
             IQuizTask task = new QuizTask();
             task.Id = id;
             task.Name = System.IO.File.ReadAllText(path + "Name.txt");
+            task.ShortDescription = System.IO.File.ReadAllText(path + "ShortDescription.txt");
             task.FullDescription = System.IO.File.ReadAllText(path + "Description.txt");
             return task;
         }
