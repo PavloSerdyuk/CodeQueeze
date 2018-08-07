@@ -30,11 +30,16 @@ namespace APIQuiz.Controllers
 
         }
         //GET api/task
-        //id 1!!!!!!!!!!!!
         [HttpGet]
         public ActionResult<IQuizTask> Get()
         {
-            var res = new ObjectResult(JsonConvert.SerializeObject(_tasksManager.GetTask(1, path)));
+            List<IQuizTask> allTasks = new List<IQuizTask>();
+            int id = 1;
+            
+            while(_tasksManager.GetTask(id, path) != null)
+                allTasks.Add(_tasksManager.GetTask(id++, path));
+
+            var res = new ObjectResult(JsonConvert.SerializeObject(allTasks));
             res.ContentTypes.Add(new MediaTypeHeaderValue("application/json"));
             return res;
         }

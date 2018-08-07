@@ -39,7 +39,11 @@ namespace TestRunner.Logic
         public IQuizTask GetTask(int id, ConfigurationPaths paths)
         {
             var path = paths.FolderPath;
-            path += "\\" + id.ToString() +"\\";
+            path += "\\" + id +"\\";
+
+            if (!Directory.Exists(path))
+                return null;
+
             IQuizTask task = new QuizTask();
             task.Id = id;
             task.Name = System.IO.File.ReadAllText(path + "Name.txt");

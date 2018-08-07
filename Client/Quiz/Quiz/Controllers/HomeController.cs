@@ -26,22 +26,12 @@ namespace Quiz.Controllers
 
         public IActionResult Index()
         {
+            string path = _settings.Value.BaseUrlApi + "/api/task/";
+            var tasks = JsonConvert.DeserializeObject<List<FullTask>>(GetObject(path).Result);
+            ViewBag.MyTasks = tasks;
             return View();
         }
 
-        public static async Task<string> GetObject(string path)
-        {
-            var response = await HttpHelper.Get(path);
-            var result = HttpHelper.ContentAsString(response);
-            return result.Result;
-        }
-
-        public static async Task<string> PostObject(string path, object value)
-        {
-            var response = await HttpHelper.Post(path, value);
-            var result = HttpHelper.ContentAsString(response);
-            return result.Result;
-        }
 
         public IActionResult Task()
         {
@@ -93,5 +83,20 @@ namespace Quiz.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public static async Task<string> GetObject(string path)
+        {
+            var response = await HttpHelper.Get(path);
+            var result = HttpHelper.ContentAsString(response);
+            return result.Result;
+        }
+
+        public static async Task<string> PostObject(string path, object value)
+        {
+            var response = await HttpHelper.Post(path, value);
+            var result = HttpHelper.ContentAsString(response);
+            return result.Result;
+        }
+
     }
 }
