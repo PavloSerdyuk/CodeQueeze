@@ -19,6 +19,7 @@ namespace Quiz.Controllers
     {
         private readonly IOptions<AppSettings> _settings;
         private static CurrentTask _currentTask = new CurrentTask();
+        private static int _tasksCounter = 0;
 
         public HomeController(IOptions<AppSettings> settings)
         {
@@ -32,6 +33,7 @@ namespace Quiz.Controllers
             {
                 var tasks = JsonConvert.DeserializeObject<List<FullTask>>(GetObject(path).Result);
                 ViewBag.MyTasks = tasks;
+                _tasksCounter = tasks.Count;
             }
             catch (TimeoutException)
             {
@@ -127,6 +129,7 @@ namespace Quiz.Controllers
             {
                 ViewBag.AlertClass = "alert alert-success";
                 ViewBag.AlertText = "Success";
+                ViewBag.TasksCounter = _tasksCounter;
                 _currentTask.Completed = true;
             }
             else
@@ -137,6 +140,11 @@ namespace Quiz.Controllers
             }
             ViewBag.Message = resp.Message;
             return View("Task", _currentTask);
+        }
+
+        public IActionResult Congratulation()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
