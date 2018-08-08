@@ -1,4 +1,5 @@
-In this task you need to divide digits, you`ll get them as strings, so you have to convert them to digits.
+In this task you need to divide digits, you`ll get them as strings, so 
+you have to convert them to digits.
 
 Example:
 8 2 => returns 4
