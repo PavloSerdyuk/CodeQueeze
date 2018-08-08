@@ -29,7 +29,7 @@ namespace TestRunner.Logic
             else
             {
                 result.ExitCode = 1;
-                result.Result = " Test Values: " + testValues + " Test Hadn`t been passed \n" + "Result was: " + runExe.Result + "\n";             
+                result.Result = " Test Values: " + testValues + " Test Hadn`t been passed " + "Result was: " + runExe.Result + "\n";             
             }
 
             return result;
@@ -110,7 +110,7 @@ namespace TestRunner.Logic
                     {
                         answer.Result = false;
                     }
-                    answer.Message += res.Result + "\n";
+                    answer.Message += res.Result;
                 }
 
                 Compiler.DeleteFiles(paths.CsFilePath);
