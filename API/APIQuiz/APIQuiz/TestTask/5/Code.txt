@@ -10,7 +10,7 @@ namespace ConsoleApp1
             int counter = 0;
 
             
-            foreach (var _char in args[1])
+            foreach (var _char in args[0])
             {
                 for (int i = 0; i < 4; ++i)
                 {

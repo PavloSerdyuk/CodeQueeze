@@ -1,5 +1,5 @@
-In this task, you need to multiply digits you`ll get. You are getting parameters as string, 
-so you need to convert them to digits.
+In this task, you need to multiply digits you`ll get. You are getting 
+parameters as string, so you need to convert them to digits.
 
 Example:
 2 2 => returns 4

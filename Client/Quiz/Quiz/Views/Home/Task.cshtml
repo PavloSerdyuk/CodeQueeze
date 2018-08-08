@@ -1,40 +1,67 @@
-﻿@model Quiz.Models.ReturnValues
+﻿@using System.Text
+@using Microsoft.AspNetCore.Html
+@model Quiz.Models.ReturnValues
 @{
-    ViewData["Title"] = "Task";
-    
+	ViewData["Title"] = "Task";
+	StringBuilder sb = new StringBuilder();
+	sb.Append("using System; namespace Program { class Program { static void Main(string[] args) " +
+			  "{ Console.WriteLine( \"Hello World!\"); } } }");
+	var str = new HtmlString(sb.ToString());
+
+
 }
 <!DOCTYPE html>
 
 <html>
 <head>
     <title>All tasks</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
 
+		.box {
+			float: left;
+			width: 55%;
+			padding: 3px;
+		}
+
+		.clearfix::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+	</style>
 </head>
 <body>
     <div class="container">
         <br/>
-        <h1><strong>@ViewBag.CurrentTask.Name</strong></h1>
-        <p>@ViewBag.CurrentTask.ShortDescription</p>
-        <p>@ViewBag.CurrentTask.FullDescription</p>
-
-        <form asp-controller="Home" asp-action="Check" method="post">
-            <div class="form-group">
-                <label for="code">Your code here:</label>
-                <textarea asp-for="Code" rows="15" class="form-control" id="code"></textarea>
-            </div>
-            @if (!@ViewBag.CurrentTask.Completed)
-            {
-                <button class="btn btn-success" type="submit">Check</button>
-            }
-        </form>
-        <div class="@ViewBag.AlertClass">
-            <strong>@ViewBag.AlertText</strong>  @ViewBag.Message
-        </div>
-        @if (@ViewBag.CurrentTask.Completed)
-        {
-            var id = ViewBag.CurrentTask.Id + 1;
-            <a href="~/Home/Task/@id" class="btn btn-success" role="button">Next Task</a>
-        }
+        <h3><strong>@ViewBag.CurrentTask.Name</strong></h3>
+	    <div class="@ViewBag.AlertClass">
+		    <strong>@ViewBag.AlertText</strong>  @ViewBag.Message
+	    </div>
+	    <div class="clearfix">
+			<div class="box">
+				<pre style="font-size:15px;">@ViewBag.CurrentTask.FullDescription</pre>
+			</div>
+		    <div class="box" style="width: 45%">
+			    <form asp-controller="Home" asp-action="Check" method="post">
+				    <div class="form-group">
+					    @*<label for="code">Your code here:</label>*@
+					    <textarea asp-for="Code" rows="15" class="form-control" id="code" placeholder="Your code here"></textarea>
+				    </div>
+				    @if (!@ViewBag.CurrentTask.Completed)
+				    {
+					    <button class="btn btn-success" type="submit" style="float: right;">Check</button>
+				    }
+			    </form>
+			    @if (@ViewBag.CurrentTask.Completed)
+			    {
+				    var id = ViewBag.CurrentTask.Id + 1;
+				    <a href="~/Home/Task/@id" class="btn btn-success" role="button" style="float: right;">Next Task</a>
+			    }
+		    </div>
+	    </div>      
     </div>
 
 </body>
