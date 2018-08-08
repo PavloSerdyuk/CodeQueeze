@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -56,32 +57,71 @@ namespace Quiz.Controllers
             if (id != _currentTask.Id)
             {
                 string path = _settings.Value.BaseUrlApi + "/api/task/" + id;
-                FullTask task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
+                FullTask task;
+                try
+                {
+                    task = JsonConvert.DeserializeObject<FullTask>(GetObject(path).Result);
+                }
+                catch (TimeoutException)
+                {
+                    ViewBag.Message = "Timeout!";
+                    return View("Error");
+                }
+                catch (AggregateException)
+                {
+                    ViewBag.Message = "Cannot reach API";
+                    return View("Error");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.Message = e.Message;
+                    return View("Error");
+                }
 
                 _currentTask.Id = task.Id;
                 _currentTask.ShortDescription = task.ShortDescription;
                 _currentTask.FullDescription = task.FullDescription;
                 _currentTask.Name = task.Name;
+                var d = Directory.GetCurrentDirectory();
+                _currentTask.Code = System.IO.File.ReadAllText(@".\wwwroot\txt\InitialCode.txt");
                 _currentTask.Completed = false;
             }
 
-            ViewBag.CurrentTask = _currentTask;
+            //ViewBag.CurrentTask = _currentTask;
             ViewBag.AlertClass = "";
             ViewBag.AlertText = "";
 
-            return View();
+            return View(_currentTask);
         }
         
-        public IActionResult Check(Quiz.Models.ReturnValues values)
+        public IActionResult Check(CurrentTask values)
         {
             _currentTask.Code = values.Code;
 
             string path = _settings.Value.BaseUrlApi + "/api/task";
             var obj = new CheckTaskRequest(){Code = _currentTask.Code, Id = _currentTask.Id};
-            
-            CheckTaskResponse resp = JsonConvert.DeserializeObject<CheckTaskResponse>(PostObject(path, obj).Result);
+            CheckTaskResponse resp;
+            try
+            {
+                resp = JsonConvert.DeserializeObject<CheckTaskResponse>(PostObject(path, obj).Result);
+            }
+            catch (TimeoutException)
+            {
+                ViewBag.Message = "Timeout!";
+                return View("Error");
+            }
+            catch (AggregateException)
+            {
+                ViewBag.Message = "Cannot reach API";
+                return View("Error");
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+                return View("Error");
+            }
 
-            ViewBag.CurrentTask = _currentTask;
+            //ViewBag.CurrentTask = _currentTask;
             
             if (resp.Result)
             {
@@ -96,7 +136,7 @@ namespace Quiz.Controllers
                 _currentTask.Completed = false;
             }
             ViewBag.Message = resp.Message;
-            return View("Task");
+            return View("Task", _currentTask);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
