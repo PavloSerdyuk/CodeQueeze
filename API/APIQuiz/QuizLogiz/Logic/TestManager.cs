@@ -19,19 +19,17 @@ namespace TestRunner.Logic
         {                
             var runExe = Compiler.RunExe(programPath, testValues);
 
-            ProcessResultModel result = new ProcessResultModel() { Result = runExe.Result.Trim(), ExitCode = 0 };
+            ProcessResultModel result = new ProcessResultModel() { Result = runExe.Result.Trim()};
 
             if (result.Result.CompareTo(expectation) == 0)
             {
                 result.ExitCode = 0;
-                result.Result = " Test values: " + testValues + " Passed\n" + "Result was: " + runExe.Result + "\n"
-                    + "Expected  Result: " + expectation + "\n";
+                result.Result = " Test values: " + testValues + " Test Passed\n" + "Result was: " + runExe.Result + "\n";
             }
             else
             {
-                result.Result = " Test Values: " + testValues + " Hadn`t been passed \n" + "Result was: " + runExe.Result + "\n"
-                    + "Expected  Result: " + expectation + "\n";
                 result.ExitCode = 1;
+                result.Result = " Test Values: " + testValues + " Test Hadn`t been passed \n" + "Result was: " + runExe.Result + "\n";             
             }
 
             return result;
