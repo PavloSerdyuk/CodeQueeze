@@ -24,12 +24,12 @@ namespace TestRunner.Logic
             if (result.Result.CompareTo(expectation) == 0)
             {
                 result.ExitCode = 0;
-                result.Result = " Test Values: " + testValues + "\n Test passed\n" + "Output was: " + runExe.Result + ".\n";
+                result.Result = " Passed\nValues: " + testValues + "\nOutput: " + runExe.Result + "\n";
             }
             else
             {
                 result.ExitCode = 1;
-                result.Result = " Test Values: " + testValues + "\n Test didn't pass \n" + "Output was: " + runExe.Result + ".\n";             
+                result.Result = " Didn't Pass\nValues: " + testValues + "\nOutput: " + runExe.Result + "\n";             
             }
 
             return result;
@@ -80,7 +80,7 @@ namespace TestRunner.Logic
      
             if (request.Code == null)
             {
-                answer.Message = "Your code is empty, please, enter code";
+                answer.Message = "Please, enter your code";
                 answer.Result = false;
                 return answer;
             }
@@ -95,7 +95,7 @@ namespace TestRunner.Logic
                 if (result.ExitCode != 0)
                 {
                     answer.Result = false;
-                    answer.Message = result.Result.Substring(370, result.Result.Length - 370);
+                    answer.Message = result.Result.Substring(371, result.Result.Length - 371);
                     return answer;
                 }
 
@@ -105,12 +105,12 @@ namespace TestRunner.Logic
                 for (int i = 0; i < TestValues.Length && i < TestResults.Length; i++)
                 {
                     var res = RunTest(TestValues[i], TestResults[i], paths.CsFilePath);
-                    answer.Message += "Test № " + (i+1).ToString();
+                    answer.Message += "\nTest № " + (i+1).ToString();
                     if (res.ExitCode != 0)
                     {
                         answer.Result = false;
                     }
-                    answer.Message += res.Result + "\n";
+                    answer.Message += res.Result;
                 }
 
                 Compiler.DeleteFiles(paths.CsFilePath);

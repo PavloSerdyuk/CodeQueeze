@@ -29,9 +29,7 @@
     <div class="container">
         <br/>
         <h3><strong>@Model.Name</strong></h3>
-	    <div class="@ViewBag.AlertClass">
-		    <strong>@ViewBag.AlertText</strong>  @ViewBag.Message
-	    </div>
+	    <div class="@ViewBag.AlertClass" style="white-space: pre-line"><strong>@ViewBag.AlertText</strong> @ViewBag.Message</div>
 	    <div class="clearfix">
 			<div class="box">
 				<pre style="font-size:15px;">@Model.FullDescription</pre>
