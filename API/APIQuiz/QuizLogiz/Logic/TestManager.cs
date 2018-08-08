@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using TestRunner.Models;
+using System.Text.RegularExpressions;
 
 namespace TestRunner.Logic
 {
@@ -96,7 +97,7 @@ namespace TestRunner.Logic
                 if (result.ExitCode != 0)
                 {
                     answer.Result = false;
-                    answer.Message = " Cannot compile this code: " + result.Result;
+                    answer.Message = result.Result.Substring(370, result.Result.Length - 370);
                     return answer;
                 }
 
