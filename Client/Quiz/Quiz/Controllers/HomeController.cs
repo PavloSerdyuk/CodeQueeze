@@ -73,11 +73,10 @@ namespace Quiz.Controllers
             else
             {
                 ViewBag.AlertClass = "alert alert-danger";
-                ViewBag.AlertText = "Error";
-                ViewBag.Message = resp.Message;
+                ViewBag.AlertText = "Error";         
                 _currentTask.Completed = false;
             }
-
+            ViewBag.Message = resp.Message;
             return View("Task");
         }
 
