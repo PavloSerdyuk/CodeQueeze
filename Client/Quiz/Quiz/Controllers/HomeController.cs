@@ -27,8 +27,27 @@ namespace Quiz.Controllers
         public IActionResult Index()
         {
             string path = _settings.Value.BaseUrlApi + "/api/task/";
-            var tasks = JsonConvert.DeserializeObject<List<FullTask>>(GetObject(path).Result);
-            ViewBag.MyTasks = tasks;
+            try
+            {
+                var tasks = JsonConvert.DeserializeObject<List<FullTask>>(GetObject(path).Result);
+                ViewBag.MyTasks = tasks;
+            }
+            catch (TimeoutException)
+            {
+                ViewBag.Message = "Timeout!";
+                return View("Error");
+            }
+            catch (AggregateException)
+            {
+                ViewBag.Message = "Cannot reach API";
+                return View("Error");
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = e.Message;
+                return View("Error");
+            }
+            
             return View();
         }
 
