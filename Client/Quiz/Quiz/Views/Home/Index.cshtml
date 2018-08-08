@@ -12,23 +12,36 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .center {
+            margin: auto;
+            text-align: center;
+            width: 60%;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body> 
 <div class="container">
-    <h2>List of tasks</h2>
-    <div class="list-group" style="width : 500px; ">
+    <div class="center">
+        <h1>Welcome to ROM Wars!</h1>
+        <h2>Let's dive into the first task</h2>
+        <a href="~/Home/Task/1" class="btn btn-success" role="button">Get Started</a>
+    </div>
+    <h4>...or pick the one you like</h4>
+    <div class="list-group" style="width: 500px;">
         @foreach (var task in @ViewBag.MyTasks)
         {
-            <a href="/Home/Task/@task.Id" class="list-group-item" style="border-style : hidden;">
-            <b>
-                @task.Id. @task.Name
-            </b>
+            <a href="/Home/Task/@task.Id" class="list-group-item" style="border-style: hidden;">
+                <b>
+                    @task.Id. @task.Name
+                </b>
                 <br/>
                 @task.ShortDescription
             </a>
         }
     </div>
-    <a href="~/Home/Task/1" class="btn btn-success" role="button">Pick task</a>
+
 </div>
 
 </body>
