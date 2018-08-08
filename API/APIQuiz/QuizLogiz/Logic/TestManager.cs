@@ -24,12 +24,12 @@ namespace TestRunner.Logic
             if (result.Result.CompareTo(expectation) == 0)
             {
                 result.ExitCode = 0;
-                result.Result = " Test values: " + testValues + " Test Passed\n" + "Result was: " + runExe.Result + "\n";
+                result.Result = " Test Values: " + testValues + "\n Test passed\n" + "Output was: " + runExe.Result + ".\n";
             }
             else
             {
                 result.ExitCode = 1;
-                result.Result = " Test Values: " + testValues + " Test Hadn`t been passed \n" + "Result was: " + runExe.Result + "\n";             
+                result.Result = " Test Values: " + testValues + "\n Test didn't pass \n" + "Output was: " + runExe.Result + ".\n";             
             }
 
             return result;
@@ -100,12 +100,12 @@ namespace TestRunner.Logic
                 }
 
                 SetTests(request.Id, paths);
-                answer.Message = "Running tests: \n";
+                //answer.Message = "Running tests: \n";
 
                 for (int i = 0; i < TestValues.Length && i < TestResults.Length; i++)
                 {
                     var res = RunTest(TestValues[i], TestResults[i], paths.CsFilePath);
-                    answer.Message += "Test № " + i.ToString();
+                    answer.Message += "Test № " + (i+1).ToString();
                     if (res.ExitCode != 0)
                     {
                         answer.Result = false;
