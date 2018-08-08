@@ -111,7 +111,6 @@ namespace TestRunner.Logic
                     if (res.ExitCode != 0)
                     {
                         answer.Result = false;
-                        break;
                     }
                     answer.Message += res.Result + "\n";
                 }
