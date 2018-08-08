@@ -41,7 +41,7 @@
 	    <div class="@ViewBag.AlertClass" style="white-space: pre-line"><strong>@ViewBag.AlertText</strong> @ViewBag.Message</div>
 	    <div class="clearfix">
 			<div class="box">
-				<pre style="font-size:15px;">@Model.ShortDescription @Model.FullDescription</pre>
+			    <pre style="font-size:15px;">@Model.ShortDescription<br/>@Model.FullDescription</pre>
 			</div>
 			<div class="box" style="width: 45%">
 				<form asp-controller="Home" asp-action="Check" method="post">
