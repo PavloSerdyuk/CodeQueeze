@@ -1,1 +1,1 @@
-Multiply digits you`ll get.
+Multiply all the numbers in an array.

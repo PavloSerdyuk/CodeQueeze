@@ -1,8 +1,7 @@
-In this task you need to divide digits, you`ll get them as strings, so 
-you have to convert them to digits.
+Hint:
+Parameters are sent to you as an array of strings (args). 
+You can use int.Parse to convert strings to integers. 
+Use Console.Write method to print the answer.
 
 Example:
 8 2 => returns 4
-
-Notice:
-Use Console.Write("Your answer").

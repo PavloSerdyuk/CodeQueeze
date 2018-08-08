@@ -1,1 +1,1 @@
-Find opposite number.
+Find the opposite number.

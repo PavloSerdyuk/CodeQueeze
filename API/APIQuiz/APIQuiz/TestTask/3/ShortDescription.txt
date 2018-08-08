@@ -1,1 +1,1 @@
-Divide digits, you`ll get them as strings.
+Divide the first number by second.
