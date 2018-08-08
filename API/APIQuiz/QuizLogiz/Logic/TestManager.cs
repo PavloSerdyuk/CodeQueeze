@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using TestRunner.Models;
-//using System.Threading.Tasks;
 
 namespace TestRunner.Logic
 {
@@ -15,24 +13,26 @@ namespace TestRunner.Logic
         
         private CodeCompiler Compiler;
         
+        // Running test on users code
         public ProcessResultModel RunTest(string testValues, string expectation,string programPath)
-        {
-            
-            // Потрібно розібратись як закидувати в компілятор код 
-            // Та дивитись чи ці тести виконались правильно                      
+        {                
             var runExe = Compiler.RunExe(programPath, testValues);
-            ProcessResultModel result = new ProcessResultModel();
-            result.Result = runExe.Result.Trim();
+
+            ProcessResultModel result = new ProcessResultModel() { Result = runExe.Result.Trim(), ExitCode = 0 };
+
             if (result.Result.CompareTo(expectation) == 0)
             {
                 result.ExitCode = 0;
+                result.Result = " Test values: " + testValues + " Passed\n" + "Result was: " + runExe.Result + "\n"
+                    + "Expected  Result: " + expectation + "\n";
             }
             else
             {
+                result.Result = " Test Values: " + testValues + " Hadn`t been passed \n" + "Result was: " + runExe.Result + "\n"
+                    + "Expected  Result: " + expectation + "\n";
                 result.ExitCode = 1;
             }
 
-            
             return result;
         }
         
@@ -41,24 +41,40 @@ namespace TestRunner.Logic
             var path = paths.FolderPath;
             path += "\\" + id +"\\";
 
-            if (!Directory.Exists(path))
-                return null;
+            IQuizTask task = new QuizTask() { Id = id };
 
-            IQuizTask task = new QuizTask();
-            task.Id = id;
-            task.Name = System.IO.File.ReadAllText(path + "Name.txt");
-            task.ShortDescription = System.IO.File.ReadAllText(path + "ShortDescription.txt");
-            task.FullDescription = System.IO.File.ReadAllText(path + "Description.txt");
-            return task;
+            if(!Directory.Exists(path) || !File.Exists(path + "Name.txt") || !File.Exists(path + "ShortDescription.txt") || !File.Exists(path + "Description.txt"))
+            {
+                return null;
+            }
+            else
+            {
+                task.Name = System.IO.File.ReadAllText(path + "Name.txt");
+                task.ShortDescription = System.IO.File.ReadAllText(path + "ShortDescription.txt");
+                task.FullDescription = System.IO.File.ReadAllText(path + "Description.txt");
+                return task;
+            }
         }
+
+        //Reading test and expeced result values from file
 
         private void SetTests(int id, ConfigurationPaths paths)
         {
             var path = paths.FolderPath;
+
             path += "\\" + id.ToString() + "\\";
-            TestValues = System.IO.File.ReadAllLines(path + "Tests.txt");
-            TestResults = System.IO.File.ReadAllLines(path + "Results.txt");
+
+            if(!File.Exists(path + "Tests.txt") || !File.Exists(path + "Results.txt"))
+            {
+                throw new Exception("Test file doesn`t exist");
+            }
+            else
+            {
+                TestValues = System.IO.File.ReadAllLines(path + "Tests.txt");
+                TestResults = System.IO.File.ReadAllLines(path + "Results.txt");
+            }
         }
+
         public CheckTaskResponse CheckCode(CheckTaskRequest request, ConfigurationPaths paths)
         {
             CheckTaskResponse answer = new CheckTaskResponse() { Id = request.Id, Result = true };
@@ -76,24 +92,31 @@ namespace TestRunner.Logic
             {
                 Compiler.CreateCs(paths.CsFilePath, "test", request.Code);
                 ProcessResultModel result = Compiler.CompileProgram(paths.CompilerPath, paths.CsFilePath);
+
                 if (result.ExitCode != 0)
                 {
                     answer.Result = false;
                     answer.Message = " Cannot compile this code: " + result.Result;
                     return answer;
                 }
+
                 SetTests(request.Id, paths);
-                for (int i = 0; i < TestValues.Length; i++)
+                answer.Message = "Running tests: \n";
+
+                for (int i = 0; i < TestValues.Length && i < TestResults.Length; i++)
                 {
                     var res = RunTest(TestValues[i], TestResults[i], paths.CsFilePath);
+                    answer.Message += "Test № " + i.ToString();
                     if (res.ExitCode != 0)
                     {
                         answer.Result = false;
+                        break;
                     }
-                    answer.Message += res.Result;
+                    answer.Message += res.Result + "\n";
                 }
 
                 Compiler.DeleteFiles(paths.CsFilePath);
+
             }
             catch (Exception e)
             {

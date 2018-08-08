@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using TestRunner.Logic;
-
-namespace TestRunner.Models
+﻿namespace TestRunner.Models
 {
     public interface IBlInterface
     {

@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logic\CompileManager.cs" />
     <Compile Include="Models\BLInterface.cs" />
     <Compile Include="Models\CheckTaskRequest.cs" />
     <Compile Include="Models\CheckTaskResponse.cs" />
