@@ -1,1 +1,1 @@
-Swap first parameter with third.
+Create a string with a phone number.
