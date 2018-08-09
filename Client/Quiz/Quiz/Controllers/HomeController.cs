@@ -66,7 +66,7 @@ namespace Quiz.Controllers
                 }
                 catch (TimeoutException)
                 {
-                    ViewBag.Message = "Timeout!";
+                    ViewBag.Message = "API is thinking for too long";
                     return View("Error");
                 }
                 catch (AggregateException)

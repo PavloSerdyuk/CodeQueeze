@@ -24,12 +24,12 @@ namespace TestRunner.Logic
             if (result.Result.CompareTo(expectation) == 0)
             {
                 result.ExitCode = 0;
-                result.Result = " Passed\nValues: " + testValues + "\nOutput: " + runExe.Result + "\n";
+                result.Result = " Passed\nTest Values: " + testValues +"\nExpected Output: " + expectation + "\nOutput: " + runExe.Result + "\n";
             }
             else
             {
                 result.ExitCode = 1;
-                result.Result = " Didn't Pass\nValues: " + testValues + "\nOutput: " + runExe.Result + "\n";             
+                result.Result = " Didn't Pass\nTest Values: " + testValues + "\nExpected Output: " + expectation  + "\nOutput: " +  runExe.Result + "\n";             
             }
 
             return result;
