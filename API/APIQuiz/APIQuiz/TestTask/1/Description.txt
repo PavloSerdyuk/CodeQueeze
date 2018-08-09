@@ -1,0 +1,2 @@
+Hint:
+Use Console.Write method to print the answer.
