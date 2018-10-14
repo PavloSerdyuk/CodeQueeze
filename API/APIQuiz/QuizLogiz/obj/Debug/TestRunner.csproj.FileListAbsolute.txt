@@ -1,0 +1,7 @@
+C:\Users\User\Documents\CodeQueeze\API\APIQuiz\QuizLogiz\obj\Debug\TestRunner.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\CodeQueeze\API\APIQuiz\QuizLogiz\bin\Debug\TestRunner.dll
+C:\Users\User\Documents\CodeQueeze\API\APIQuiz\QuizLogiz\bin\Debug\TestRunner.pdb
+C:\Users\User\Documents\CodeQueeze\API\APIQuiz\QuizLogiz\obj\Debug\TestRunner.dll
+C:\Users\User\Documents\CodeQueeze\API\APIQuiz\QuizLogiz\obj\Debug\TestRunner.pdb
+C:\Users\User\Documents\CodeQueeze\API\APIQuiz\QuizLogiz\bin\Debug\TestRunner.dll.config
+C:\Users\User\Documents\CodeQueeze\API\APIQuiz\QuizLogiz\obj\Debug\TestRunner.csprojAssemblyReference.cache
