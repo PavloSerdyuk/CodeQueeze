@@ -1,0 +1,12 @@
+using System;
+
+namespace TestingTask
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("{0} {1} {2}", args[2], args[1], args[0]);
+        }
+    }
+}

@@ -1,0 +1,25 @@
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var vowels = "aeio";
+            int counter = 0;
+
+            
+            foreach (var _char in args[0])
+            {
+                for (int i = 0; i < 4; ++i)
+                {
+                    if (vowels[i] == _char)
+                        ++counter;
+                }
+            }
+
+            Console.Write(counter);
+        }
+    }
+}

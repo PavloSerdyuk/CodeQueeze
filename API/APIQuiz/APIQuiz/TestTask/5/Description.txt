@@ -1,0 +1,8 @@
+Hint:
+Parameters are sent to you as an array of strings (args). 
+We will consider a, e, i, o, and u as vowels for this task.
+The input string will only consist of lower case letters 
+and/or spaces. Use Console.Write method to print the answer.
+
+Example:
+aaaa => returns 4

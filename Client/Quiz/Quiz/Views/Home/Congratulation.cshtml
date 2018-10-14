@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Congratulation";
+}
+
+<html>
+<head>
+	<title>All tasks</title>
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		.box {
+			float: left;
+			max-width: 50%;
+			width: 50%;
+			height: 100%;
+			padding: 3px;
+		}
+
+		.clearfix::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+	</style>
+</head>
+
+<body>
+<div class="clearfix">
+	<div class="box" >
+		<img src="http://www.pngall.com/wp-content/uploads/2017/05/Congratulation-Free-Download-PNG.png" alt="Congratulation Picture" style="max-width: 100%"/>
+	</div>
+	<div class="box" style="text-align: center;">
+		<br /><br /><br /><br />
+		<h2><strong>You've completed all tasks!</strong></h2>
+		<br />
+		<a href="~/Home/Index" class="btn btn-success" role="button" style="font-size: 20px;">Home</a>
+	</div>
+</div>
+</body>
+</html>

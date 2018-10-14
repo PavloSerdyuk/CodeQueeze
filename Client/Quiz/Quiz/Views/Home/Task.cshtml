@@ -1,0 +1,72 @@
+﻿@model Quiz.Models.CurrentTask
+@{
+	ViewData["Title"] = "Task";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>All tasks</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		.box {
+			float: left;
+			width: 55%;
+			padding: 3px;
+		}
+
+		.clearfix::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	    <div class="clearfix" style="height: 100%;">
+		    <div class="box" style="width: 50%; height: 100%; text-align: center; ">
+			    
+			    <h1><strong>@Model.Name</strong></h1>
+		    </div>
+	    </div>
+	    
+	    <div class="@ViewBag.AlertClass" style="white-space: pre-line"><strong>@ViewBag.AlertText</strong> @ViewBag.Message</div>
+	    <div class="clearfix">
+			<div class="box">
+			    <pre style="font-size:15px;">@Model.ShortDescription<br/>@Model.FullDescription</pre>
+			</div>
+			<div class="box" style="width: 45%">
+				<form asp-controller="Home" asp-action="Check" method="post">
+					<div class="form-group">
+						@*<label for="code">Your code here:</label>*@
+						<textarea asp-for="@Model.Code" rows="15" class="form-control" id="code" autofocus></textarea>
+					</div>
+					
+					@if (!@Model.Completed)
+					{
+						<button class="btn btn-success" type="submit" style="float: right;">Check</button>
+					}
+				</form>
+				@if (@Model.Completed)
+				{
+					if (@ViewBag.TasksCounter <= Model.Id)
+					{
+						<a href="~/Home/Congratulation" class="btn btn-success" role="button" style="float: right;">Finish</a>
+					}
+					else
+					{
+						var id = Model.Id + 1;
+						<a href="~/Home/Task/@id" class="btn btn-success" role="button" style="float: right;">Next Task</a>
+					}
+
+				}
+			</div>
+	    </div>      
+    </div>
+
+</body>
+</html>
