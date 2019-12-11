@@ -19,21 +19,44 @@
             width: 60%;
             padding: 10px;
         }
+
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .item {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            margin: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        .item:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
     </style>
 </head>
-<body> 
+<body>
 <div class="container">
     <div class="center">
-        <h1><strong>Welcome to CodeQuiz!</strong></h1>
+        <h1><strong>Welcome to CodeWars!</strong></h1>
         <h3>Let's dive into the first task</h3>
         <br/>
         <a href="~/Home/Task/1" class="btn btn-success" role="button">Get Started</a>
     </div>
     <h4>...or pick the one you like</h4>
-    <div class="list-group" style="width: 500px;">
+    <div class="flex-row" style="width: 90%">
         @foreach (var task in @ViewBag.MyTasks)
         {
-            <a href="/Home/Task/@task.Id" class="list-group-item" style="border-style: hidden;">
+            <a href="/Home/Task/@task.Id" class="item" style="border-style: hidden;">
                 <b>
                     @task.Id. @task.Name
                 </b>

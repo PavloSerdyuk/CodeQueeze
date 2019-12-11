@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -24,6 +21,20 @@ namespace Quiz.Controllers
         public HomeController(IOptions<AppSettings> settings)
         {
             _settings = settings;
+        }
+
+        [HttpPost]
+        public IActionResult TaskCreate(AdminViewModel data)
+        {
+            
+            var model = new AdminViewModel();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Admin()
+        {
+            var model = new AdminViewModel();
+            return View(model);
         }
 
         public IActionResult Index()
