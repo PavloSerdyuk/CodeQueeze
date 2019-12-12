@@ -24,10 +24,10 @@ namespace Quiz.Controllers
         }
 
         [HttpPost]
-        public IActionResult TaskCreate(AdminViewModel data)
+        public async Task<IActionResult> TaskCreate(AdminViewModel data)
         {
-            
-            var model = new AdminViewModel();
+            string path = _settings.Value.BaseUrlApi + "/api/task";
+            await HttpHelper.PostTask(path, data);
             return RedirectToAction("Index");
         }
 
@@ -61,7 +61,7 @@ namespace Quiz.Controllers
                 ViewBag.Message = e.Message;
                 return View("Error");
             }
-            
+
             return View();
         }
 
@@ -106,13 +106,15 @@ namespace Quiz.Controllers
 
             return View(_currentTask);
         }
-        
+
         public IActionResult Check(CurrentTask values)
         {
+            var watch = new Stopwatch();
+            watch.Start();
             _currentTask.Code = values.Code;
 
             string path = _settings.Value.BaseUrlApi + "/api/task";
-            var obj = new CheckTaskRequest(){Code = _currentTask.Code, Id = _currentTask.Id};
+            var obj = new CheckTaskRequest() { Code = _currentTask.Code, Id = _currentTask.Id };
             CheckTaskResponse resp;
             try
             {
@@ -135,21 +137,25 @@ namespace Quiz.Controllers
             }
 
             //ViewBag.CurrentTask = _currentTask;
-            
-            if (resp.Result)
-            {
-                ViewBag.AlertClass = "alert alert-success";
-                ViewBag.AlertText = "Success";
-                ViewBag.TasksCounter = _tasksCounter;
-                _currentTask.Completed = true;
-            }
-            else
-            {
-                ViewBag.AlertClass = "alert alert-danger";
-                ViewBag.AlertText = "Error";         
-                _currentTask.Completed = false;
-            }
-            ViewBag.Message = resp.Message;
+
+            //if (resp.Result)
+            //{
+            ViewBag.AlertClass = "alert alert-info";
+            ViewBag.AlertText = "Result:";
+            ViewBag.TasksCounter = _tasksCounter;
+            _currentTask.Completed = true;
+            //}
+            //else
+            //{
+            //    ViewBag.AlertClass = "alert alert-danger";
+            //    ViewBag.AlertText = "Error";
+            //    _currentTask.Completed = false;
+            //}
+            watch.Stop();
+            var time = "\r\nTime: " + watch.Elapsed;
+            var length = "\r\nLength: " + values.Code.Length + "/1300";
+
+            ViewBag.Message = resp.Message + time + length;
             return View("Task", _currentTask);
         }
 

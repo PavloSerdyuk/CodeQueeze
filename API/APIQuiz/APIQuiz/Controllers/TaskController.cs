@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using APIQuiz.Test;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
@@ -59,6 +60,15 @@ namespace APIQuiz.Controllers
             res.ContentTypes.Add(new MediaTypeHeaderValue("application/json"));
             return res;
         }
+
+
+        // POST api/task/create
+        [HttpPost("create")]
+        public ActionResult<bool> CreateTask([FromBody] TaskCreateModel value)
+        {
+            return _tasksManager.CreateTask(value.Name, value.Description, value.ShortDescription, value.Tests, value.Results, path);
+        }
+
 
 
 

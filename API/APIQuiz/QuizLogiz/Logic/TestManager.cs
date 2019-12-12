@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using TestRunner.Models;
 using System.Text.RegularExpressions;
 
@@ -8,6 +9,7 @@ namespace TestRunner.Logic
     
     public class TaskManager : IBlInterface
     {
+        private static int tasksCount = 8;
 
         public string[] TestValues;
         public string[] TestResults;
@@ -54,6 +56,44 @@ namespace TestRunner.Logic
                 return task;
             }
         }
+
+        public bool CreateTask(string name, string description, string shortDescription, string tests, string results, ConfigurationPaths paths)
+        {
+            try
+            {
+                var path = paths.FolderPath;
+
+                path += "\\" + (++tasksCount).ToString() + "\\";
+
+                DirectoryInfo di = Directory.CreateDirectory(paths.FolderPath + "\\" + (tasksCount).ToString());
+
+                var fileName = path + "Name.txt";
+                var content = name;
+
+                WriteTextToFile(fileName, content);
+
+                WriteTextToFile(path + "ShortDescription.txt", shortDescription);
+                WriteTextToFile(path + "Description.txt", description);
+                WriteTextToFile(path + "Results.txt", results);
+                WriteTextToFile(path + "Tests.txt", tests);
+                
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        private static void WriteTextToFile(string fileName, string content)
+        {
+            using (var file = File.Create(fileName))
+            {
+                var b = Encoding.ASCII.GetBytes(content);
+                file.Write(b, 0, b.Length);
+            }
+        }
+
 
         //Reading test and expeced result values from file
 

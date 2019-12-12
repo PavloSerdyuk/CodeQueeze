@@ -30,7 +30,7 @@ namespace Quiz.Models
             if (!string.IsNullOrEmpty(acceptHeader))
                 request.Headers.Accept.Add(
                     new MediaTypeWithQualityHeaderValue(acceptHeader));
-            
+
             return await client.SendAsync(request);
         }
 
@@ -44,6 +44,12 @@ namespace Quiz.Models
             string requestUri, object value)
         {
             return await SendAsync(HttpMethod.Post, requestUri, new JsonContent(value));
+        }
+
+        public static async Task<HttpResponseMessage> PostTask(
+            string requestUri, object value)
+        {
+            return await SendAsync(HttpMethod.Post, requestUri + "/create", new JsonContent(value));
         }
 
         public static async Task<string> ContentAsString(HttpResponseMessage response)
@@ -87,9 +93,9 @@ namespace Quiz.Models
         //        return JsonConvert.SerializeObject(data);
         //    }
 
-            
+
         //}
     }
 
-    
+
 }
